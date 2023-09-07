@@ -26,8 +26,8 @@ public class ViewController {
         return "board";
     }
 
-    @GetMapping("/post")
-    public String postPage() {
-        return "post";
+    @GetMapping("/write")
+    public String writePage() {
+        return "write";
     }
 }
