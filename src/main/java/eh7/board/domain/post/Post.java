@@ -13,14 +13,14 @@ public class Post {
     private Long id;
     private String writer;
     private String title;
-    private LocalDateTime date;
+    private LocalDateTime postDate;
     private String content;
     private Long views;
 
     public Post(String writer, String title, String content) {
         this.writer = writer;
         this.title = title;
-        this.date = LocalDateTime.now();
+        this.postDate = LocalDateTime.now();
         this.content = content;
         this.views = 0L;
     }
