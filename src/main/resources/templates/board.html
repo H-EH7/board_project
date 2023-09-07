@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <title>Home</title>
+  <style>
+    .w-10 {
+    width:10%;
+    }
+    .w-15 {
+    width:15%;
+    }
+  </style>
+</head>
+<body>
+<!--네비게이션 바-->
+<nav class="navbar bg-primary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">EH7's Board</a>
+    <div class="navbar-nav">
+      <a class="nav-link" href="login">Login</a>
+    </div>
+  </div>
+</nav>
+<!--네비게이션 바 END-->
+
+<!--BOARD Container-->
+<div class="container mt-5">
+  <nav class="navbar border-bottom">
+    <div class="container-fluid">
+      <a class="btn btn-outline-primary" href="post">Post</a>
+    </div>
+  </nav>
+
+  <table class="table table-hover">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col" class="text-center w-10">#</th>
+        <th scope="col" class="text-center w-15">Writer</th>
+        <th scope="col" class="text-center">Title</th>
+        <th scope="col" class="text-center w-15">Date</th>
+        <th scope="col" class="text-center w-10">Views</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr>
+        <td scope="row" class="text-center">1</td>
+        <td class="text-center">tester1</td>
+        <td><a class="link-underline link-underline-opacity-0" href="#">test title</a></td>
+        <td class="text-center">23.09.07</td>
+        <td class="text-center">0</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <nav>
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled"><a class="page-link">Previous</a></li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+  </nav>
+</div>
+<!--BOARD Container END-->
+</body>
+</html>

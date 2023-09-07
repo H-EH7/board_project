@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css" rel="stylesheet">
+  <title>Login</title>
+</head>
+<body>
+<!--네비게이션 바-->
+<nav class="navbar bg-primary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">EH7's Board</a>
+    <div class="navbar-nav">
+      <a class="nav-link active" aria-current="page" href="login">Login</a>
+    </div>
+  </div>
+</nav>
+<!--네비게이션 바 END-->
+
+<!--로그인 폼-->
+<div class="container-fluid mt-5 px-5"
+style="max-width: 1000px;">
+  <form>
+    <!--ID-->
+    <div class="mb-3">
+      <label for="id" class="form-label">ID</label>
+      <input type="text" class="form-control" id="id">
+    </div>
+    <!--PASSWORD-->
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password">
+    </div>
+    <!--LOGIN-->
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+  </form>
+  <!--SIGN UP-->
+  <a class="btn btn-primary" href="/sign">Sign up</a>
+</div>
+<!--로그인 폼 END-->
+
+</body>
+</html>
