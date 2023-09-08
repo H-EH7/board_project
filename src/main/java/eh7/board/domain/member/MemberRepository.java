@@ -15,4 +15,9 @@ public interface MemberRepository {
      * 회원 조회
      */
     Optional<Member> findById(Long id);
+
+    /**
+     * 회원 아이디로 회원 조회
+     */
+    Optional<Member> findByUserId(String userId);
 }

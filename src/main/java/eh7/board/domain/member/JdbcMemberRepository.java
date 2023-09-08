@@ -44,7 +44,21 @@ public class JdbcMemberRepository implements MemberRepository {
             return Optional.of(member);
         } catch (EmptyResultDataAccessException e) {
             //todo: 에러 변경
-            throw new RuntimeException(e);
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<Member> findByUserId(String userId) {
+        String sql = "select * from members where user_id = :userId";
+        try {
+            SqlParameterSource param = new MapSqlParameterSource()
+                    .addValue("userId", userId);
+            Member member = template.queryForObject(sql, param, memberRowMapper());
+            return Optional.of(member);
+        } catch (EmptyResultDataAccessException e) {
+            //todo: 에러 변경
+            return Optional.empty();
         }
     }
 

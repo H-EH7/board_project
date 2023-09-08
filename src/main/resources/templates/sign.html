@@ -5,6 +5,12 @@
   <link th:href="@{/css/bootstrap.min.css}"
         href="../css/bootstrap.min.css" rel="stylesheet">
   <title>Login</title>
+  <style>
+    .field-error {
+      border-color: red;
+      color: red;
+    }
+  </style>
 </head>
 <body>
 <!--네비게이션 바-->
@@ -21,26 +27,25 @@
 <!--가입 폼-->
 <div class="container-fluid mt-5 px-5"
 style="max-width: 1000px;">
-  <form>
+  <form th:object="${member}" method="post">
     <!--ID-->
     <div class="mb-3">
       <label for="id" class="form-label">ID</label>
-      <input type="text" class="form-control" id="id">
+      <input type="text" class="form-control" id="id" th:field="*{userId}" th:errorclass="field-error">
+      <div class="field-error" th:errors="*{userId}">오류</div>
+      <div class="field-error" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}">글로벌 오류 - 아이디 중복</div>
     </div>
     <!--NAME-->
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
-      <input type="text" class="form-control" id="name">
+      <input type="text" class="form-control" id="name" th:field="*{name}" th:errorclass="field-error">
+      <div class="field-error" th:errors="*{name}">오류</div>
     </div>
     <!--PASSWORD-->
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password">
-    </div>
-    <!--PASSWORD CONFIRM-->
-    <div class="mb-3">
-      <label for="password-confirm" class="form-label">Password Confirm</label>
-      <input type="password" class="form-control" id="password-confirm">
+      <input type="password" class="form-control" id="password" th:field="*{password}" th:errorclass="field-error">
+      <div class="field-error" th:errors="*{password}">오류</div>
     </div>
     <!--SUBMIT-->
     <div class="mb-3">
