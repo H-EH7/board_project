@@ -11,13 +11,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Post {
     private Long id;
+    private Long userId;
     private String writer;
     private String title;
     private LocalDateTime postDate;
     private String content;
     private Long views;
 
-    public Post(String writer, String title, String content) {
+    public Post(Long userId, String writer, String title, String content) {
+        this.userId = userId;
         this.writer = writer;
         this.title = title;
         this.postDate = LocalDateTime.now();

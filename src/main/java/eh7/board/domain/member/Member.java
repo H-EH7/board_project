@@ -1,8 +1,6 @@
 package eh7.board.domain.member;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
