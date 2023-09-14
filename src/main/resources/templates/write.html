@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <title>Write</title>
-
+  <style>
+    .field-error {
+      border-color: red;
+      color: red;
+    }
+  </style>
 </head>
 <body>
 <!--네비게이션 바-->
@@ -25,11 +30,13 @@
   <form th:action="@{/post}" th:object="${postForm}" method="post">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
-      <input type="text" class="form-control" th:field="*{title}" id="title" placeholder="Your title">
+      <input type="text" class="form-control" th:errorclass="field-error" th:field="*{title}" id="title" placeholder="Your title">
+      <div class="field-error" th:errors="*{title}">제목을 입력해주세요.</div>
     </div>
     <div class="mb-3">
       <label for="content" class="form-label">Content</label>
-      <textarea class="form-control" id="content" th:field="*{content}" placeholder="Write here" rows="5"></textarea>
+      <textarea class="form-control" id="content" th:errorclass="field-error" th:field="*{content}" placeholder="Write here" rows="5"></textarea>
+      <div class="field-error" th:errors="*{content}">내용을 입력해주세요.</div>
     </div>
     <div class="btn-group">
       <button type="submit" class="btn btn-primary" >Submit</button>
