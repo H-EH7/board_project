@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <title>Post</title>
+</head>
+<body>
+<!--네비게이션 바-->
+<nav class="navbar bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">EH7's Board</a>
+        <div class="navbar-nav">
+            <a th:if="${isLogin == false}" class="nav-link" href="/login">Login</a>
+            <form th:if="${isLogin == true}" th:action="@{/logout}" method="post">
+                <button class="nav-link" type="submit">Log out</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<!--네비게이션 바 END-->
+
+<div class="container mt-5">
+    <!--제목-->
+    <div class="row mb-3 border-bottom border-primary">
+        <h1 th:text="${post.title}">제목</h1>
+    </div>
+    <!--작성자 / 조회수 / 작성 일자-->
+    <div class="row mb-3">
+        <div class="col-1 border-end text-center" th:text="${post.writer}">작성자</div>
+        <div class="col">Writer</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-1 border-end text-center">조회수</div>
+        <div class="col" th:text="${post.views}">0</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-1 border-end text-center">작성 일자</div>
+        <div class="col" th:text="${post.postDate}">94.11.16</div>
+    </div>
+    <!--내용-->
+    <div class="row pt-3 border-top">
+        <div class="col">
+            <p th:text="${post.content}">내용입니다.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

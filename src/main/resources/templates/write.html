@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <link href="/css/bootstrap.min.css" rel="stylesheet">
-  <title>Home</title>
+  <title>Write</title>
 
 </head>
 <body>
@@ -22,14 +22,14 @@
 <!--네비게이션 바 END-->
 
 <div class="container mt-5">
-  <form>
+  <form th:action="@{/post}" th:object="${postForm}" method="post">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
-      <input type="text" class="form-control" id="title" placeholder="Your title">
+      <input type="text" class="form-control" th:field="*{title}" id="title" placeholder="Your title">
     </div>
     <div class="mb-3">
       <label for="content" class="form-label">Content</label>
-      <textarea class="form-control" id="content" placeholder="Write here" rows="5"></textarea>
+      <textarea class="form-control" id="content" th:field="*{content}" placeholder="Write here" rows="5"></textarea>
     </div>
     <div class="btn-group">
       <button type="submit" class="btn btn-primary" >Submit</button>

@@ -30,15 +30,6 @@ public class HomeController {
         return "board";
     }
 
-    @GetMapping("/write")
-    public String writePage(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
-                            Model model) {
-
-        loginCheck(member, model);
-
-        return "write";
-    }
-
     private void loginCheck(Member member, Model model) {
         boolean isLogin = false;
 
