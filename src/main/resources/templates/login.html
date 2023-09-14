@@ -5,6 +5,12 @@
   <link th:href="@{/css/bootstrap.min.css}"
         href="../css/bootstrap.min.css" rel="stylesheet">
   <title>Login</title>
+  <style>
+    .field-error {
+      border-color: red;
+      color: red;
+    }
+  </style>
 </head>
 <body>
 <!--네비게이션 바-->
@@ -21,16 +27,19 @@
 <!--로그인 폼-->
 <div class="container-fluid mt-5 px-5"
 style="max-width: 1000px;">
-  <form>
+  <form th:object="${loginForm}" method="post">
+    <div class="field-error" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}">글로벌 오류 - 로그인 실패</div>
     <!--ID-->
     <div class="mb-3">
       <label for="id" class="form-label">ID</label>
-      <input type="text" class="form-control" id="id">
+      <input type="text" class="form-control" id="id" th:field="*{userId}" th:errorclass="field-error">
+      <div class="field-error" th:errors="*{userId}">오류</div>
     </div>
     <!--PASSWORD-->
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password">
+      <input type="password" class="form-control" id="password" th:field="*{password}" th:errorclass="field-error">
+      <div class="field-error" th:errors="*{password}">오류</div>
     </div>
     <!--LOGIN-->
     <div class="mb-3">

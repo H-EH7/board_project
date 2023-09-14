@@ -19,7 +19,10 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="/">EH7's Board</a>
     <div class="navbar-nav">
-      <a class="nav-link" href="login">Login</a>
+      <a th:if="${isLogin == false}" class="nav-link" href="login">Login</a>
+      <form th:if="${isLogin == true}" th:action="@{/logout}" method="post">
+        <button class="nav-link" type="submit">Log out</button>
+      </form>
     </div>
   </div>
 </nav>
