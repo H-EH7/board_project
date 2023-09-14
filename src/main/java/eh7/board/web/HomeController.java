@@ -25,6 +25,21 @@ public class HomeController {
     public String boardPage(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
                             Model model) {
 
+        loginCheck(member, model);
+
+        return "board";
+    }
+
+    @GetMapping("/write")
+    public String writePage(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
+                            Model model) {
+
+        loginCheck(member, model);
+
+        return "write";
+    }
+
+    private void loginCheck(Member member, Model model) {
         boolean isLogin = false;
 
         if (member != null) {
@@ -32,12 +47,5 @@ public class HomeController {
         }
 
         model.addAttribute("isLogin", isLogin);
-
-        return "board";
-    }
-
-    @GetMapping("/write")
-    public String writePage() {
-        return "write";
     }
 }
