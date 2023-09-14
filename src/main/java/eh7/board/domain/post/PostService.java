@@ -4,6 +4,7 @@ import eh7.board.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,5 +18,9 @@ public class PostService {
 
     public Optional<Post> findPostById(Long id) {
         return postRepository.findById(id);
+    }
+
+    public List<Post> findAll() {
+        return postRepository.findAll();
     }
 }

@@ -47,12 +47,12 @@
       </tr>
     </thead>
     <tbody class="table-group-divider">
-      <tr>
-        <td scope="row" class="text-center">1</td>
-        <td class="text-center">tester1</td>
-        <td><a class="link-underline link-underline-opacity-0" href="#">test title</a></td>
-        <td class="text-center">23.09.07</td>
-        <td class="text-center">0</td>
+      <tr th:each="post : ${posts}">
+        <td th:text="${post.id}" scope="row" class="text-center">1</td>
+        <td th:text="${post.writer}" class="text-center">tester1</td>
+        <td><a th:text="${post.title}" class="link-underline link-underline-opacity-0" th:href="@{/post/{id}(id=${post.id})}">test title</a></td>
+        <td th:text="${post.postDate}" class="text-center">23.09.07</td>
+        <td th:text="${post.views}" class="text-center">0</td>
       </tr>
     </tbody>
   </table>

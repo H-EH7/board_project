@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -45,6 +46,12 @@ public class JdbcPostRepository implements PostRepository {
             //todo: 에러 변경
             return Optional.empty();
         }
+    }
+
+    @Override
+    public List<Post> findAll() {
+        String sql = "select * from posts";
+        return template.query(sql, postRowMapper());
     }
 
     //todo: 업데이트, 삭제 추가

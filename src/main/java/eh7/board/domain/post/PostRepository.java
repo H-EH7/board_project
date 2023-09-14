@@ -1,5 +1,6 @@
 package eh7.board.domain.post;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -19,4 +20,10 @@ public interface PostRepository {
      * @return
      */
     Optional<Post> findById(Long id);
+
+    /**
+     * 모든 게시글 조회
+     * @return
+     */
+    List<Post> findAll();
 }
