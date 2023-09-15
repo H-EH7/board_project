@@ -1,5 +1,6 @@
 package eh7.board.domain.post;
 
+import eh7.board.web.post.PostForm;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -54,7 +55,26 @@ public class JdbcPostRepository implements PostRepository {
         return template.query(sql, postRowMapper());
     }
 
-    //todo: 업데이트, 삭제 추가
+    @Override
+    public void update(Long id, PostForm postForm) {
+        String sql = "update posts " +
+                "set title=:title, content=:content " +
+                "where id=:id";
+
+        SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("title", postForm.getTitle())
+                .addValue("content", postForm.getContent())
+                .addValue("id", id);
+
+        template.update(sql, param);
+    }
+
+    @Override
+    public void delete(Long id) {
+        String sql = "delete from posts where id=:id";
+        SqlParameterSource param = new MapSqlParameterSource("id", id);
+        template.update(sql, param);
+    }
 
     private RowMapper<Post> postRowMapper() {
         return BeanPropertyRowMapper.newInstance(Post.class);

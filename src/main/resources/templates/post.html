@@ -21,6 +21,16 @@
 <!--네비게이션 바 END-->
 
 <div class="container mt-5">
+
+    <nav th:if="${isWriter}" class="navbar border-bottom mb-3">
+        <div class="container-fluid">
+                <a type="submit" class="btn btn-outline-primary" th:href="@{/post/{id}/edit(id=${post.id})}">Edit</a>
+            <form th:action="@{/post/{id}/delete(id=${post.id})}" method="post">
+                <button type="submit" class="btn btn-outline-primary">Delete</button>
+            </form>
+        </div>
+    </nav>
+
     <!--제목-->
     <div class="row mb-3 border-bottom border-primary">
         <h1 th:text="${post.title}">제목</h1>

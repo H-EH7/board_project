@@ -1,5 +1,7 @@
 package eh7.board.domain.post;
 
+import eh7.board.web.post.PostForm;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -26,4 +28,17 @@ public interface PostRepository {
      * @return
      */
     List<Post> findAll();
+
+    /**
+     * 게시글 수정
+     * @param id
+     * @return
+     */
+    void update(Long id, PostForm postForm);
+
+    /**
+     * 게시글 삭제
+     * @param id
+     */
+    void delete(Long id);
 }

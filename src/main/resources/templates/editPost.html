@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <title>Write</title>
+  <style>
+    .field-error {
+      border-color: red;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<!--네비게이션 바-->
+<nav class="navbar bg-primary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">EH7's Board</a>
+    <div class="navbar-nav">
+      <a th:if="${isLogin == false}" class="nav-link" href="login">Login</a>
+      <form th:if="${isLogin == true}" th:action="@{/logout}" method="post">
+        <button class="nav-link" type="submit">Log out</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<!--네비게이션 바 END-->
+
+<div class="container mt-5">
+  <form th:action="@{/post/{id}(id=${postId})}" th:object="${postForm}" method="post">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" th:errorclass="field-error" th:field="*{title}" id="title" placeholder="Your title">
+      <div class="field-error" th:errors="*{title}">제목을 입력해주세요.</div>
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">Content</label>
+      <textarea class="form-control" id="content" th:errorclass="field-error" th:field="*{content}" placeholder="Write here" rows="5"></textarea>
+      <div class="field-error" th:errors="*{content}">내용을 입력해주세요.</div>
+    </div>
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary" >Submit</button>
+      <a class="btn btn-primary" href="..">Cancel</a>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

@@ -37,7 +37,7 @@ public class PostController {
     public String getPost(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
                           @PathVariable Long id,
                           Model model) {
-        loginCheck(member, model);
+        boolean isLogin = loginCheck(member, model);
 
         Optional<Post> findResult = postService.findPostById(id);
 
@@ -45,24 +45,37 @@ public class PostController {
             return "redirect:/board";
         }
 
-        Post post = findResult.get();
+        boolean isWriter = false;
+        if (isLogin) {
+            isWriter = postService.writerCheck(id, member.getId());
+        }
+        model.addAttribute("isWriter", isWriter);
 
+        Post post = findResult.get();
         model.addAttribute("post", post);
 
         return "post";
     }
 
+    @GetMapping("/post/{id}/edit")
+    public String editPost(PostForm postForm,
+                           @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
+                           @PathVariable Long id,
+                           Model model) {
+        loginCheck(member, model);
+
+        model.addAttribute("postId", id);
+        return "editPost";
+    }
+
     @PostMapping("/post")
     public String post(@Valid PostForm postForm,
+                       @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
                        BindingResult bindingResult,
-                       HttpServletRequest request,
                        RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "write";
         }
-
-        HttpSession session = request.getSession(false);
-        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         Post post = postService.post(new Post(member.getId(), member.getName(), postForm.getTitle(), postForm.getContent()));
 
@@ -71,7 +84,27 @@ public class PostController {
         return "redirect:post/{id}";
     }
 
-    private void loginCheck(Member member, Model model) {
+    @PostMapping("/post/{id}")
+    public String updatePost(@Valid PostForm postForm,
+                             @PathVariable Long id,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "editPost";
+        }
+
+        postService.update(id, postForm);
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/post/{id}";
+    }
+
+    @PostMapping("/post/{id}/delete")
+    public String deletePost(@PathVariable Long id) {
+        postService.delete(id);
+        return "redirect:/board";
+    }
+
+    private boolean loginCheck(Member member, Model model) {
         boolean isLogin = false;
 
         if (member != null) {
@@ -79,5 +112,7 @@ public class PostController {
         }
 
         model.addAttribute("isLogin", isLogin);
+
+        return isLogin;
     }
 }
