@@ -37,6 +37,12 @@ public interface PostRepository {
     void update(Long id, PostForm postForm);
 
     /**
+     * 조회수 변경
+     * @param id
+     */
+    void updateView(Long id);
+
+    /**
      * 게시글 삭제
      * @param id
      */

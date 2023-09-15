@@ -4,6 +4,7 @@ import eh7.board.SessionConst;
 import eh7.board.domain.member.Member;
 import eh7.board.domain.post.Post;
 import eh7.board.domain.post.PostService;
+import eh7.board.domain.view.ViewService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -22,6 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
+    private final ViewService viewService;
 
     @GetMapping("/write")
     public String writePage(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
@@ -37,19 +39,26 @@ public class PostController {
     public String getPost(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
                           @PathVariable Long id,
                           Model model) {
+        // 로그인 유무 확인
         boolean isLogin = loginCheck(member, model);
 
-        Optional<Post> findResult = postService.findPostById(id);
-
-        if (findResult.isEmpty()) {
-            return "redirect:/board";
-        }
-
+        // 작성자 확인
         boolean isWriter = false;
         if (isLogin) {
             isWriter = postService.writerCheck(id, member.getId());
         }
         model.addAttribute("isWriter", isWriter);
+
+        // 조회수 올리기
+        if (isLogin) {
+            viewService.view(id, member.getId());
+        }
+
+        // 게시글 존재하는지 확인
+        Optional<Post> findResult = postService.findPostById(id);
+        if (findResult.isEmpty()) {
+            return "redirect:/board";
+        }
 
         Post post = findResult.get();
         model.addAttribute("post", post);
