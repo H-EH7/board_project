@@ -12,9 +12,4 @@ public class LoginForm {
 
     @NotEmpty
     private String password;
-
-    public LoginForm(String userId, String password) {
-        this.userId = userId;
-        this.password = password;
-    }
 }

@@ -5,8 +5,6 @@ import eh7.board.domain.member.Member;
 import eh7.board.domain.post.Post;
 import eh7.board.domain.post.PostService;
 import eh7.board.domain.view.ViewService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -79,8 +77,8 @@ public class PostController {
 
     @PostMapping("/post")
     public String post(@Valid PostForm postForm,
-                       @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
                        BindingResult bindingResult,
+                       @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
                        RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "write";
@@ -95,10 +93,12 @@ public class PostController {
 
     @PostMapping("/post/{id}")
     public String updatePost(@Valid PostForm postForm,
-                             @PathVariable Long id,
                              BindingResult bindingResult,
+                             @PathVariable Long id,
+                             Model model,
                              RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("postId", id);
             return "editPost";
         }
 
