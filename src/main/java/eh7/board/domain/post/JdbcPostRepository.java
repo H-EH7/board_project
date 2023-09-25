@@ -92,7 +92,7 @@ public class JdbcPostRepository implements PostRepository {
 
     @Override
     public void delete(Long id) {
-        String sql = "delete from posts where id=:id CASCADE";
+        String sql = "delete from posts where id=:id";
         SqlParameterSource param = new MapSqlParameterSource("id", id);
         template.update(sql, param);
     }

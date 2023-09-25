@@ -19,7 +19,7 @@ create table posts
     content     varchar(255) not null,
     views       bigint,
     primary key (id),
-    foreign key (user_id) references members(id)
+    foreign key (user_id) references members(id) on delete cascade
 );
 
 drop table if exists views CASCADE;
@@ -29,6 +29,6 @@ create table views
     post_id     bigint not null,
     user_id     bigint not null,
     primary key (id),
-    foreign key (post_id) references posts(id),
-    foreign key (user_id) references members(id)
+    foreign key (post_id) references posts(id) on delete cascade,
+    foreign key (user_id) references members(id) on delete cascade
 );

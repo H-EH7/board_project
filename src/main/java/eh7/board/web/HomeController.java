@@ -39,7 +39,11 @@ public class HomeController {
 
         int totalPosts = postService.getTotalPosts();
         int totalPages = (totalPosts / PageConst.PAGE_SIZE) + (totalPosts % PageConst.PAGE_SIZE > 0 ? 1 : 0);
-        
+        // 게시글이 하나도 없을 경우
+        if (totalPages == 0) {
+            model.addAttribute("page", new Page(1, 1, 0, 1, 1, 1, false, false));
+            return "board";
+        }
         if (pageNum > totalPages) pageNum = totalPages; // 페이지 번호 보정
         
         // 페이지 네비바를 위한 로직
@@ -60,7 +64,7 @@ public class HomeController {
         Page page = new Page(pageNum, totalPages, totalPosts, navSize, startPage, endPage, hasPrev, hasNext);
         model.addAttribute("page", page);
 
-        int startPostNum = (page.getCurrentPage() - 1) * PageConst.PAGE_SIZE;
+        int startPostNum = (pageNum - 1) * PageConst.PAGE_SIZE;
         List<Post> posts = postService.findByPageNum(startPostNum, PageConst.PAGE_SIZE);
         model.addAttribute("posts", posts);
         // 페이징 처리 끝 ================================================

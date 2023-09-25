@@ -110,7 +110,7 @@ public class PostController {
     @PostMapping("/post/{id}/delete")
     public String deletePost(@PathVariable Long id) {
         postService.delete(id);
-        return "redirect:/board";
+        return "redirect:/";
     }
 
     private boolean loginCheck(Member member, Model model) {
