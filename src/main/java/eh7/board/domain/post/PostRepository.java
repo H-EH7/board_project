@@ -24,6 +24,14 @@ public interface PostRepository {
     Optional<Post> findById(Long id);
 
     /**
+     * 게시글 갯수 제한 조회
+     * @param start
+     * @param total
+     * @return
+     */
+    List<Post> findByPage(Integer start, Integer total);
+
+    /**
      * 모든 게시글 조회
      * @return
      */
@@ -47,4 +55,10 @@ public interface PostRepository {
      * @param id
      */
     void delete(Long id);
+
+    /**
+     * 총 게시물 수 구하기
+     * @return
+     */
+    int getTotalContents();
 }

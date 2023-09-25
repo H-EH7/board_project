@@ -12,7 +12,9 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -50,6 +52,15 @@ public class JdbcPostRepository implements PostRepository {
     }
 
     @Override
+    public List<Post> findByPage(Integer start, Integer total) {
+        String sql = "select * from posts order by post_date desc limit :start, :total";
+        SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("start", start)
+                .addValue("total", total);
+        return template.query(sql, param, postRowMapper());
+    }
+
+    @Override
     public List<Post> findAll() {
         String sql = "select * from posts";
         return template.query(sql, postRowMapper());
@@ -58,12 +69,13 @@ public class JdbcPostRepository implements PostRepository {
     @Override
     public void update(Long id, PostForm postForm) {
         String sql = "update posts " +
-                "set title=:title, content=:content " +
+                "set title=:title, content=:content, post_date=:date " +
                 "where id=:id";
 
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("title", postForm.getTitle())
                 .addValue("content", postForm.getContent())
+                .addValue("date", LocalDateTime.now())
                 .addValue("id", id);
 
         template.update(sql, param);
@@ -80,9 +92,15 @@ public class JdbcPostRepository implements PostRepository {
 
     @Override
     public void delete(Long id) {
-        String sql = "delete from posts where id=:id";
+        String sql = "delete from posts where id=:id CASCADE";
         SqlParameterSource param = new MapSqlParameterSource("id", id);
         template.update(sql, param);
+    }
+
+    @Override
+    public int getTotalContents() {
+        String sql = "select count(id) from posts";
+        return template.queryForObject(sql, Map.of(), Integer.class);
     }
 
     private RowMapper<Post> postRowMapper() {

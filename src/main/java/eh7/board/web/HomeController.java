@@ -4,13 +4,14 @@ import eh7.board.SessionConst;
 import eh7.board.domain.member.Member;
 import eh7.board.domain.post.Post;
 import eh7.board.domain.post.PostService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import eh7.board.web.page.Page;
+import eh7.board.web.page.PageConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
@@ -23,17 +24,46 @@ public class HomeController {
 
     @GetMapping
     public String home() {
-        return "redirect:board";
+        return "redirect:board?page=1";
     }
 
     @GetMapping("/board")
     public String boardPage(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
+                            @RequestParam(name = "page") Integer pageNum,
                             Model model) {
 
         loginCheck(member, model);
 
-        List<Post> posts = postService.findAll();
+        // 페이징 처리 ================================================
+        if (pageNum < 1) pageNum = 1; // 페이지 번호 보정
+
+        int totalPosts = postService.getTotalPosts();
+        int totalPages = (totalPosts / PageConst.PAGE_SIZE) + (totalPosts % PageConst.PAGE_SIZE > 0 ? 1 : 0);
+        
+        if (pageNum > totalPages) pageNum = totalPages; // 페이지 번호 보정
+        
+        // 페이지 네비바를 위한 로직
+        boolean hasPrev = pageNum > 1;
+        boolean hasNext = pageNum < totalPages;
+        int navSize = PageConst.MAX_NAV_SIZE;
+        if ((totalPages - pageNum + 1) < PageConst.MAX_NAV_SIZE) {
+            navSize = totalPages % PageConst.PAGE_SIZE;
+        }
+
+        int startPage = pageNum % PageConst.MAX_NAV_SIZE == 0 ?
+                pageNum - PageConst.MAX_NAV_SIZE + 1 :
+                pageNum - (pageNum % PageConst.MAX_NAV_SIZE) + 1;
+        int endPage = (startPage + PageConst.MAX_NAV_SIZE - 1) > totalPages ?
+                totalPages :
+                startPage + PageConst.MAX_NAV_SIZE - 1;
+
+        Page page = new Page(pageNum, totalPages, totalPosts, navSize, startPage, endPage, hasPrev, hasNext);
+        model.addAttribute("page", page);
+
+        int startPostNum = (page.getCurrentPage() - 1) * PageConst.PAGE_SIZE;
+        List<Post> posts = postService.findByPageNum(startPostNum, PageConst.PAGE_SIZE);
         model.addAttribute("posts", posts);
+        // 페이징 처리 끝 ================================================
 
         return "board";
     }

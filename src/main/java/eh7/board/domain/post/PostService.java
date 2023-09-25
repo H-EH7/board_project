@@ -25,6 +25,9 @@ public class PostService {
     public List<Post> findAll() {
         return postRepository.findAll();
     }
+    public List<Post> findByPageNum(Integer start, Integer total) {
+        return postRepository.findByPage(start, total);
+    }
 
     public void update(Long id, PostForm postForm) {
         postRepository.update(id, postForm);
@@ -32,6 +35,10 @@ public class PostService {
 
     public void delete(Long id) {
         postRepository.delete(id);
+    }
+
+    public int getTotalPosts() {
+        return postRepository.getTotalContents();
     }
 
     public boolean writerCheck(Long postId, Long memberId) {

@@ -62,16 +62,15 @@
       </tr>
     </tbody>
   </table>
-
+<!--Page nav-->
   <nav>
     <ul class="pagination justify-content-center">
-      <li class="page-item disabled"><a class="page-link">Previous</a></li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      <li class="page-item" th:classappend="${!page.hasPrev} ? 'disabled' : ''"><a class="page-link" th:href="@{/board(page=${page.currentPage-1})}">Previous</a></li>
+      <li class="page-item" th:each="num : ${#numbers.sequence(page.startPage, page.endPage)}" th:classappend="${page.currentPage == num} ? 'disabled' : ''"><a class="page-link" th:href="@{/board(page=${num})}" th:text="${num}">page number</a></li>
+      <li class="page-item" th:classappend="${!page.hasNext} ? 'disabled' : ''"><a class="page-link" th:href="@{/board(page=${page.currentPage+1})}">Next</a></li>
     </ul>
   </nav>
+<!--Page nav END-->
 </div>
 <!--BOARD Container END-->
 </body>
