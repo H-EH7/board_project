@@ -97,3 +97,27 @@
 뿐만 아니라 스프링 프레임워크의 구조와 서블릿 기술에 대해 정리가 필요할 것 같다. <br>
 
 앞으로 검색 기능, 권한 부여, 비밀번호 암호화 등 기능을 계속해서 추가하겠다.
+
+----------
+
+## 👀 결과
+### 메인 (로그인 전)
+<img src="https://github.com/H-EH7/board_project/assets/102291958/b2911b02-081c-45b5-bea5-0900762bf092">
+
+### 메인 (로그인 후)
+<img src="https://github.com/H-EH7/board_project/assets/102291958/f3b14878-7530-4fbb-ba7d-e66847cb2816">
+
+### 로그인
+<img src="https://github.com/H-EH7/board_project/assets/102291958/f259b4e1-1ac4-488b-b3d7-a656bec7e8bd">
+
+### 회원가입
+<img src="https://github.com/H-EH7/board_project/assets/102291958/80cef120-0c4c-4cf7-93d8-529241bc6a13">
+
+### 게시글 작성
+<img src="https://github.com/H-EH7/board_project/assets/102291958/051587b5-7994-47b7-ad5f-019ce3861950">
+
+### 게시글
+<img src="https://github.com/H-EH7/board_project/assets/102291958/f3c8fb67-28dc-4b47-89a4-7e64b920dd29">
+
+### 게시글 수정
+<img src="https://github.com/H-EH7/board_project/assets/102291958/9364f621-a3a4-4e45-9563-8924accc188f">
